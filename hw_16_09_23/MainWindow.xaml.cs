@@ -63,15 +63,7 @@ namespace hw_16_09_23
             bitmapImage.EndInit();
             return bitmapImage;
         }
-        private void GridLeft_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (_index - 1 >= 0)
-            {
-                _index--;
-                FullImage.Source = GetPath();
-            }
-        }
-        private void GridRight_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void DirectionForward()
         {
             if (_index + 1 <= _path.Length - 1)
             {
@@ -79,20 +71,53 @@ namespace hw_16_09_23
                 FullImage.Source = GetPath();
             }
         }
-        private void GridLeft_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void DirectionBack()
+        {
+            if (_index - 1 >= 0)
+            {
+                _index--;
+                FullImage.Source = GetPath();
+            }
+        }
+        private void HideArrows()
         {
             if (_index - 1 < 0)
             {
                 GridLeft.Opacity = 0;
             }
-        }
-
-        private void GridRight_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (_index + 1 == _path.Length)
+            else if (_index + 1 == _path.Length)
             {
                 GridRight.Opacity = 0;
             }
+        }
+        private void GridLeft_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DirectionBack();
+        }
+        private void GridRight_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DirectionForward();
+        }
+        private void GridLeft_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            HideArrows();
+        }
+        private void GridRight_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            HideArrows();
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Left)
+            {
+                DirectionBack();
+            }
+            else if (e.Key == Key.Right)
+            {
+                DirectionForward();
+            }
+
+            HideArrows();
         }
     }
 }
