@@ -31,6 +31,7 @@ namespace hw_16_09_23
             _path = Directory.GetFiles(@"G:\ШАГ\WPF\_hw\hw_16_09_23\hw_16_09_23\img");
 
             FullImage.Source = GetPath();
+            CreatePreviewImage();
         }
 
         private void GridLeft_MouseEnter(object sender, MouseEventArgs e)
@@ -118,6 +119,45 @@ namespace hw_16_09_23
             }
 
             HideArrows();
+        }
+        private void CreatePreviewImage()
+        {
+            foreach (var path in _path)
+            {
+                Image image = new Image
+                {
+                    Source = new BitmapImage(new Uri(path)),
+                    Margin = new Thickness(5),
+                    Height = 100
+                };
+
+                image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
+                ArrayImg.Children.Add(image);
+            }
+        }
+        private void SPPopup_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SPPopup.Opacity = 1;
+        }
+        private void SPPopup_MouseLeave(object sender, MouseEventArgs e)
+        {
+            SPPopup.Opacity = 0;
+        }
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Image img = (Image)sender;
+            FullImage.Source = img.Source;
+
+            string str = img.Source.ToString();
+            str = str.Substring(str.LastIndexOf('/') + 1);
+
+            for (int i = 0; i < _path.Length; i++)
+            {
+                if (string.Compare(_path[i].Substring(_path[i].LastIndexOf('\\') + 1), str) == 0)
+                {
+                    _index = i;
+                }
+            }
         }
     }
 }

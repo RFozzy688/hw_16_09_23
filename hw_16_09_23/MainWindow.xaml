@@ -22,6 +22,16 @@
 
         <Image Name="FullImage" Grid.Column="1" Margin="5"/>
 
+        <StackPanel Name="SPPopup" Opacity="0" Background="Transparent" VerticalAlignment="Bottom" Grid.ColumnSpan="3" 
+                    MouseEnter="SPPopup_MouseEnter" MouseLeave="SPPopup_MouseLeave" Margin="30,0,30,0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Name="ArrayImg" Orientation="Horizontal" HorizontalAlignment="Center" 
+                            ClipToBounds="True" Background="Gray">
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+
         <Grid Name="GridRight" Background="Transparent" Opacity="0" Grid.Column="2"
               MouseEnter="GridRight_MouseEnter" 
               MouseLeave="GridRight_MouseLeave" MouseLeftButtonDown="GridRight_MouseLeftButtonDown" PreviewMouseLeftButtonUp="GridRight_PreviewMouseLeftButtonUp">
